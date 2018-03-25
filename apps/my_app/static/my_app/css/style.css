@@ -1,0 +1,8 @@
+td, th {
+    border: 1px solid;
+    border-style: solid;
+}
+
+.poke_details {
+    border-style: solid;
+}

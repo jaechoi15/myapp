@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pokes</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'my_app/css/style.css' %}">
+</head>
+<body>
+    <div class="header">
+        <h2>Welcome, {{ user.alias }}</h2>
+        <a href="/logout">Logout</a>
+    </div>
+    <div class="pokes">
+        <h3>{{ total_poked_by }} people poked you!</h3>
+    </div>
+    <div class="poke_details">
+        {% for poke in user_poked %}
+        <p>{{ poke.poker.alias }} poked you {{ poke.num_pokes }} time(s)</p>
+        {% endfor %}
+    </div>
+    <div class="available_users">
+        <h3 class="table_name">People you may want to poke:</h3>
+        <table class="available_users_tbl">
+            <thead>
+                <tr>
+                    <td>Name</td>
+                    <td>Alias</td>
+                    <td>Email Address</td>
+                    <td>Poke History</td>
+                    <td>Action</td>
+                </tr>
+                {% for user in total_pokes %}
+                <tr>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.alias }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.counter }} pokes</td>
+                    <td><form action="/pokes/{{ user.id }}" method='POST'>
+                        {% csrf_token %}
+                        <button>Poke!</button>
+                    </form></td>
+                </tr>
+                {% endfor %}
+            </thead>
+        </table>
+    </div>
+</body>
+</html>
